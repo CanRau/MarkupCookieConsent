@@ -1,0 +1,74 @@
+<?php
+
+/**
+ * Swift Mailer WireMail module by HappyGaia
+ */
+class CookieConsent extends WireData implements Module {
+
+    /**
+     * getModuleInfo is a module required by all modules to tell ProcessWire about them
+     *
+     * @return array
+     */
+    public static function getModuleInfo() {
+        return array(
+            'title' => 'Cookie Consent',
+            'summary' => __('WireMail module providing Swift Mailer integration'),
+            'author' => 'Can Rau',
+            'href' => 'happygaia.com',
+            'version' => 1,
+            'autoload' => true,
+            'singular' => true
+        );
+    }
+
+
+    public function __construct() {
+        $this->message('test');
+    }
+
+
+    public function init() {
+        $this->addHookAfter('Page::render', $this, 'injectCookieConsentFiles');
+    }
+
+
+    public function injectCookieConsentFiles($event) {
+        $page = $event->object; 
+
+        // don't add this to the admin pages
+        if($page->template == 'admin') return;
+
+        $cookieConsentOptions  = '<script>';
+        $cookieConsentOptions .= 'window.cookieconsent_options = {';
+        // foreach ($this->getDefaults() as $config => $value) {
+        //     $value = is_null($value) ? 'null' : $value;
+        //     $cookieConsentOptions .= "$config: '$value',";
+        // }
+        $cookieConsentOptions .= "message:'$this->messageText',";
+        $cookieConsentOptions .= "dismiss:'$this->dismiss',";
+        $cookieConsentOptions .= "learnMore:'$this->learnMore',";
+        $cookieConsentOptions .= "link:'$this->link',";
+        $cookieConsentOptions .= "container:'$this->container',";
+        $cookieConsentOptions .= "theme:'$this->theme',";
+        $cookieConsentOptions .= "path:'$this->path',";
+        $cookieConsentOptions .= "domain:'$this->domain',";
+        $cookieConsentOptions .= "expiryDays:'$this->expiryDays',";
+        $cookieConsentOptions .= "target:'$this->target'";
+        $cookieConsentOptions .= '};';
+        $cookieConsentOptions .= '</script>';
+
+
+        if ($this->injectOptions) {
+            $event->return = str_replace("</body>", "$cookieConsentOptions</body>", $event->return);
+        }
+
+        if ($this->injectFiles) {
+            $folder = $this->wire('config')->urls->$this.'cookieconsent2/build';
+            // $event->return = str_replace("</head>", "<link rel='stylesheet' type='text/css' href='$folder/$this->theme.css' /></head>", $event->return); 
+            // $event->return = str_replace("</body>", "<script src='".$this->wire('config')->urls->$this.'cookieconsent2/cookieconsent.js'."'></script></body>", $event->return); 
+            $event->return = str_replace("</body>", "<script src='$folder/cookieconsent.min.js'></script></body>", $event->return); 
+        }
+    }
+
+}
