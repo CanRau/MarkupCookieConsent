@@ -1,7 +1,9 @@
 <?php
 
 /**
- * Swift Mailer WireMail module by HappyGaia
+ * Wrapper module for Cookie Consent plugin
+ * url: https://silktide.com/tools/cookie-consent/
+ * 
  */
 class CookieConsent extends WireData implements Module {
 
@@ -67,7 +69,8 @@ class CookieConsent extends WireData implements Module {
             $folder = $this->wire('config')->urls->$this.'cookieconsent2/build';
             // $event->return = str_replace("</head>", "<link rel='stylesheet' type='text/css' href='$folder/$this->theme.css' /></head>", $event->return); 
             // $event->return = str_replace("</body>", "<script src='".$this->wire('config')->urls->$this.'cookieconsent2/cookieconsent.js'."'></script></body>", $event->return); 
-            $event->return = str_replace("</body>", "<script src='$folder/cookieconsent.min.js'></script></body>", $event->return); 
+            $cookieConsentJs = $this->useCloudFlare ? '//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.9/cookieconsent.min.js' : "$folder/cookieconsent.min.js";
+            $event->return = str_replace("</body>", "<script src='$cookieConsentJs'></script></body>", $event->return); 
         }
     }
 

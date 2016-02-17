@@ -4,6 +4,7 @@ class CookieConsentConfig extends ModuleConfig {
     public function getDefaults() {
         return array(
         'injectFiles' => 1,
+        'useCloudFlare' => 1,
         'injectOptions' => 1,
         'messageText' => $this->_('This website uses cookies to ensure you get the best experience on our website'),
         'dismiss' => $this->_('Got it!'),
@@ -23,16 +24,27 @@ class CookieConsentConfig extends ModuleConfig {
             array(
                 'type' => 'checkbox',
                 'name' => 'injectFiles',
-                'label' => $this->_('Shall we inject dependencies?'),
+                'label' => $this->_('Inject dependencies?'),
                 'value' => 1,
-                'columnWidth' => 50
+                'notes' => $this->_('This will automagically insert the needed files into your site'),
+                'columnWidth' => 34
+            ),
+            array(
+                'type' => 'checkbox',
+                'name' => 'useCloudFlare',
+                'label' => $this->_('Get js from cloudflare'),
+                'value' => 1,
+                'notes' => $this->_('Either get the files from cloudflare or localy'),
+                'columnWidth' => 33,
+                'showIf' => 'injectFiles=1'
             ),
             array(
                 'type' => 'checkbox',
                 'name' => 'injectOptions',
                 'label' => $this->_('Shall we inject options?'),
                 'value' => 1,
-                'columnWidth' => 50
+                'notes' => $this->_("If you want to include the settings yourself"),
+                'columnWidth' => 33
             ),
             array(
                 'type' => 'markup',
@@ -53,13 +65,14 @@ class CookieConsentConfig extends ModuleConfig {
                         'name' => 'theme',
                         'label' => $this->_('Choose Style'),
                         'options' => array(
-                            'light-top' => 'Light (top)',
-                            'light-bottom' => 'Light (bottom)',
-                            'light-floating' => 'Light (floating)',
-                            'dark-top' => 'Dark (top)',
-                            'dark-bottom' => 'Dark (bottom)',
-                            'dark-floating' => 'Dark (floating)',
-                            'dark-floating' => 'dark (floating)',
+                            'dark-bottom',
+                            'dark-floating-tada',
+                            'dark-floating',
+                            'dark-inline',
+                            'dark-top',
+                            'light-bottom',
+                            'light-floating',
+                            'light-top',
                             'custom' => 'custom theme',
                             'false' => 'no theme'
                         ),
