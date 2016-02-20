@@ -1,0 +1,106 @@
+<?php
+
+/**
+ * Wrapper module for Cookie Consent plugin
+ * url: https://silktide.com/tools/cookie-consent/
+ * 
+ */
+class MarkupCookieConsent extends WireData implements Module {
+
+    /**
+     * getModuleInfo is a module required by all modules to tell ProcessWire about them
+     *
+     * @return array
+     */
+    public static function getModuleInfo() {
+        return array(
+            'title' => 'Markup Cookie Consent',
+            'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
+            'author' => 'Can Rau',
+            'href' => 'happygaia.com',
+            'version' => 1,
+            'autoload' => true,
+            'singular' => true
+        );
+    }
+
+
+    public function __construct() {}
+
+
+    public function init() {
+        $input = $this->wire('input');
+
+        // if already accepted return, to stop module
+        if ($input->cookie($this->cookieName)) return;
+
+        // set cookie if accept cookie button pressed
+        if ($input->post->action === 'acceptCookies') {
+            setcookie($this->cookieName, '1', $this->cookieExpire, $this->cookiePath, $this->cookieDomain, $this->cookieSSL, $this->HttpOnly);
+
+            // if it's ajax request we just exit here
+            if ($this->wire('config')->ajax) exit;
+
+            // reload page to prevent duplicate form submissions
+            $this->wire('session')->redirect('./');
+        }
+
+        // no cookie present and no submission, let's invoke the hook to render everything
+        $this->addHookAfter('Page::render', $this, 'renderCookieForm');
+    }
+
+
+    public function renderCookieForm($event) {
+        $page = $event->object; 
+
+        // we stop here when on admin pages except this modules config page (for demonstration)
+        if($page->template == 'admin' && $this->wire('input')->get->name != $this) return;
+
+        if ($this->moduleStyles) {
+            $classPrefix = empty($this->classPrefix) ? 'mCCF' : $this->classPrefix;
+            $position = empty($this->position) ? 'bottom' : $this->position;
+            $colorTheme = empty($this->colorTheme) ? 'dark' : $this->colorTheme;
+            $classContainer = "$classPrefix {$classPrefix}--{$position} {$classPrefix}--{$colorTheme}";
+            $classButton = "{$classPrefix}__accept";
+            $classPrivacy = "{$classPrefix}__link";
+        } else {
+            $classContainer = $this->classContainer;
+            $classButton = $this->classButton;
+            $classPrivacy = $this->classPrivacy;
+        }
+
+        $cookieConsentForm  = "<form id='mCCForm' class='$classContainer' action='./' method='post'>";
+        $cookieConsentForm .= "<button id='mCCButton' class='$classButton' name='action' value='acceptCookies'>";
+        // additional markup like an icon can easily be prepended
+        if ($this->buttonPrepend) $cookieConsentForm .= "$this->buttonPrepend ";
+        $cookieConsentForm .= $this->buttonText;
+        // or appended to the button
+        if ($this->buttonAppend) $cookieConsentForm .= $this->buttonAppend;
+        $cookieConsentForm .= "</button>";
+        $cookieConsentForm .= "<p class='mCCF__message'>";
+        $cookieConsentForm .= $this->messageText;
+        // if privacyText and privacyUrl provided append to cookieMessage
+        if ($this->privacyText && $this->privacyUrl) {
+            $cookieConsentForm .= "<a class='$classPrivacy' href='$this->privacyUrl' target='$this->privacyTarget'>$this->privacyText</a>";
+        }
+        $cookieConsentForm .= "</p>";
+        $cookieConsentForm .= "</form>";
+
+        $folder = $this->wire('config')->urls->$this;
+        if ($this->moduleStyles) $event->return = str_replace("</head>", "<link rel='stylesheet' type='text/css' href='{$folder}{$this}.css' /></head>", $event->return); 
+
+        $jsFile = $this->useAjax ? "<script type='text/javascript' src='{$folder}{$this}.js'></script>" : '';
+
+        $event->return = str_replace("</body>", "{$jsFile}{$cookieConsentForm}</body>", $event->return);
+    }
+
+    public function isEU($countrycode){
+        $eu_countrycodes = array(
+            'AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL',
+            'ES', 'FI', 'FR', 'GB', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV',
+            'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
+        );
+        return(in_array($countrycode, $eu_countrycodes));
+    }
+
+}
