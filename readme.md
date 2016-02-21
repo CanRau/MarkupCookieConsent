@@ -1,7 +1,9 @@
 # MarkupCookieConsent
-#### Still considered Beta
+## Still considered Beta
 Not widely tested, and config inputs already look like they're translatable but they're actually **not** yet saving!
 
+
+## What it does
 This module is intended to add a little cookie notice to your front-end. It's doing this by hooking into page render and altering the output to include the form at the end of the page (right before </body>).
 
 ## Features
