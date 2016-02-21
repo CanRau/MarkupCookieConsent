@@ -219,11 +219,11 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                     )
                 )
             ), // cookieOptions fieldset
-            array(
-                'type' => 'button',
-                'name' => 'resetSettings',
-                'value' => __("Default settings"),
-            )
+            // array(
+            //     'type' => 'button',
+            //     'name' => 'resetSettings',
+            //     'value' => __("Default settings"),
+            // )
         ));
     }
 }
