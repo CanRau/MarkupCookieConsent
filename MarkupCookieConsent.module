@@ -1,8 +1,13 @@
 <?php
 
 /**
- * Wrapper module for Cookie Consent plugin
- * url: https://silktide.com/tools/cookie-consent/
+ * MarkupCookieConsent
+ *
+ * This module is intended to add a little cookie notice to your front-end.
+ * It's doing this by hooking into page render and altering the output
+ * to include the form at the end of the page (right before </body>).
+ * 
+ * more infos in readme.md
  * 
  */
 class MarkupCookieConsent extends WireData implements Module {
@@ -18,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
             'author' => 'Can Rau',
             'href' => 'happygaia.com',
-            'version' => 1,
+            'version' => 8,
             'autoload' => true,
             'singular' => true
         );
