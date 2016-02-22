@@ -17,4 +17,5 @@ This module is intended to add a little cookie notice to your front-end. It's do
 * you wanna roll your own design? Just disable default stylesheet
 
 ## Installation
-As it's not yet in [Processwires module directory](http://modules.processwire.com/) you need download it from [Github](https://github.com/CanRau/MarkupCookieConsent/) and install it by unzipping and moving into your /site/modules/ folder or selecting the zip from your back-ends modules page.
+You can enter the class name *MarkupCookieConsent* in your back-ends module configs and it will download ist automatically
+or get from [Processwires module directory](http://modules.processwire.com/modules/markup-cookie-consent/) or [Github](https://github.com/CanRau/MarkupCookieConsent/) and install it by unzipping and moving into your /site/modules/ folder or selecting the zip from your back-ends modules page.
