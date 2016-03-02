@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
             'author' => 'Can Rau',
             'href' => 'happygaia.com',
-            'version' => 8,
+            'version' => 9,
             'autoload' => true,
             'singular' => true
         );
@@ -92,20 +92,36 @@ class MarkupCookieConsent extends WireData implements Module {
         $cookieConsentForm .= "</p>";
         $cookieConsentForm .= "</form>";
         $folder = $this->wire('config')->urls->$this;
-        if ($this->moduleStyles) $event->return = str_replace("</head>", "<link rel='stylesheet' type='text/css' href='{$folder}{$this}.css' /></head>", $event->return); 
+        if ($this->moduleStyles) $event->return = $this->str_replace_once("<link ", "<link rel='stylesheet' type='text/css' href='{$folder}{$this}.css' /><link ", $event->return); 
 
         $jsFile = $this->useAjax ? "<script type='text/javascript' src='{$folder}{$this}.js'></script>" : '';
 
         $event->return = str_replace("</body>", "{$jsFile}{$cookieConsentForm}</body>", $event->return);
     }
 
-    public function isEU($countrycode){
-        $eu_countrycodes = array(
-            'AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL',
-            'ES', 'FI', 'FR', 'GB', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV',
-            'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
-        );
-        return(in_array($countrycode, $eu_countrycodes));
+
+    /**
+     * helper function
+     */
+    function str_replace_once($str_pattern, $str_replacement, $string) {
+        if (strpos($string, $str_pattern) !== false){
+            $occurrence = strpos($string, $str_pattern);
+            return substr_replace($string, $str_replacement, strpos($string, $str_pattern), strlen($str_pattern));
+        }
+        return $string;
     }
+
+
+    /**
+     * @todo maybe planned in future version
+     */
+    // public function isEU($countrycode){
+    //     $eu_countrycodes = array(
+    //         'AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL',
+    //         'ES', 'FI', 'FR', 'GB', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV',
+    //         'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
+    //     );
+    //     return(in_array($countrycode, $eu_countrycodes));
+    // }
 
 }
