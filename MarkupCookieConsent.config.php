@@ -51,8 +51,8 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'label' => __('Select theme'),
                         'columnWidth' => 25,
                         'options' => array(
-                            'dark' => 'dark (Default)',
-                            'light' => 'light'
+                            'dark' => __('dark (Default)'),
+                            'light' => __('light')
                         ),
                         'showIf' => 'moduleStyles=1',
                         'requiredIf' => 'moduleStyles=1'
@@ -63,8 +63,8 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'label' => __('Select position'),
                         'columnWidth' => 25,
                         'options' => array(
-                            'top' => 'top',
-                            'bottom' => 'bottom (Default)'
+                            'top' => __('top'),
+                            'bottom' => __('bottom (Default)')
                         ),
                         'showIf' => 'moduleStyles=1',
                         'requiredIf' => 'moduleStyles=1'

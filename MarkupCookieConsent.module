@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
             'author' => 'Can Rau',
             'href' => 'happygaia.com',
-            'version' => 9,
+            'version' => 10,
             'autoload' => true,
             'singular' => true
         );

@@ -21,4 +21,5 @@ You can enter the class name *MarkupCookieConsent* in your back-ends module conf
 or get from [Processwires module directory](http://modules.processwire.com/modules/markup-cookie-consent/) or [Github](https://github.com/CanRau/MarkupCookieConsent/) and install it by unzipping and moving into your /site/modules/ folder or selecting the zip from your back-ends modules page.
 
 ## Changelog
+* 0.1.0 - Missing strings now translatable
 * 0.0.9 - Changed style injection, now prepends to first <link> in head makes it easier to add custom css tweaks without the need for !important because of the cascading order
