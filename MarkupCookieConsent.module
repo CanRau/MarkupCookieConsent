@@ -22,7 +22,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'title' => 'Markup Cookie Consent',
             'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
             'author' => 'Can Rau',
-            'href' => 'happygaia.com',
+            'href' => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
             'version' => 11,
             'autoload' => true,
             'singular' => true
