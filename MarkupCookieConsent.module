@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
             'author' => 'Can Rau',
             'href' => 'happygaia.com',
-            'version' => 10,
+            'version' => 11,
             'autoload' => true,
             'singular' => true
         );
@@ -41,7 +41,7 @@ class MarkupCookieConsent extends WireData implements Module {
 
         // set cookie if accept cookie button pressed
         if ($input->post->action === 'acceptCookies') {
-            setcookie($this->cookieName, '1', $this->cookieExpire, $this->cookiePath, $this->cookieDomain, $this->cookieSSL, $this->HttpOnly);
+            setcookie($this->cookieName, 1, $this->cookieExpire, $this->cookiePath, $this->cookieDomain, $this->cookieSSL, $this->cookieHttp);
 
             // if it's ajax request we just exit here
             if ($this->wire('config')->ajax) exit;

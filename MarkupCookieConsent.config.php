@@ -15,11 +15,11 @@ class MarkupCookieConsentConfig extends ModuleConfig {
         'privacyPage' => 0,
         'privacyTarget' => '_self',
         'cookieName' => 'eu-cookie',
-        'cookieExpire' => time()+1209600,
-        'cookiePath' => '',
-        'cookieDomain' => '',
+        'cookieExpire' => time()+60*60*24*365,
+        'cookiePath' => '/',
+        'cookieDomain' => null,
         'cookieSSL' => false,
-        'cookieHttpOnly' => true,
+        'cookieHttp' => true,
         'classPrefix' => 'mCCF',
         'classButton' => 'mCCF__accept'
         );
@@ -211,7 +211,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                     ),
                     array(
                         'type' => 'checkbox',
-                        'name' => 'cookieHttpOnly',
+                        'name' => 'cookieHttp',
                         'label' => __("Cookie only via HTTP"),
                         'description' => __('Cookie will be accessible only through HTTP protocol'),
                         'notes' => __("Default true\nIt has been suggested that this setting can effectively help to reduce identity theft through XSS attacks"),
