@@ -14,7 +14,7 @@ Not widely tested, and config inputs already look like they're translatable but 
 This module is intended to add a little cookie notice to your front-end. It's doing this by hooking into page render and altering the output to include the form at the end of the page (right before &lt;/body&gt;).
 
 ## Features
-* AJAX (deactivatable)
+* AJAX (deactivatable, JS disabled users will fall back to normal form submit with page reload, so fully functional without JS)
 * 2 themes (dark/light)
 * 2 positions (top/bottom)
 * customizable texts, message and button label
