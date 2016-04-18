@@ -95,7 +95,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'name' => 'buttonPrepend',
                         'label' => __('Prepend Text or HTML to the button text'),
                         'icon' => 'fa-check',
-                        'notes' => sprintf(__("For example Font Awesome checkmark icon e.g. %s\n(You need to include Font Awesome on your own)"), "<i class='fa fa-check'></i>"),
+                        'notes' => sprintf(__('For example Font Awesome checkmark icon e.g. %s (You need to include Font Awesome on your own)'), "<i class='fa fa-check'></i>"),
                         'columnWidth' => 50
                     ),
                     array(
@@ -181,7 +181,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'name' => 'cookieExpire',
                         'label' => __("Seconds to expire"),
                         'description' => __('Seconds the cookie should last'),
-                        'notes' => __('Default: 1209600 (seconds) = 14 days'),
+                        'notes' => __('Default: 31536000 (seconds) = 1 year'),
                         'size' => 100,
                         'columnWidth' => 50
                     ),
@@ -213,8 +213,8 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'type' => 'checkbox',
                         'name' => 'cookieHttp',
                         'label' => __("Cookie only via HTTP"),
-                        'description' => __('Cookie will be accessible only through HTTP protocol'),
-                        'notes' => __("Default true\nIt has been suggested that this setting can effectively help to reduce identity theft through XSS attacks"),
+                        'description' => __('Cookie will be accessible only through HTTP protocol (Default true)'),
+                        'notes' => __("It has been suggested that this setting can effectively help to reduce identity theft through XSS attacks"),
                         'columnWidth' => 50
                     )
                 )
