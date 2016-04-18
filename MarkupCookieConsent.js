@@ -1,4 +1,10 @@
 /**
+ * NOTE If you make any changes to this file:
+ * You need to minify it yourself or at least name it MarkupCookieConsent.min.js
+ * because the module only injects this file automatically
+ */
+
+/**
  * Cross-browser Document Ready check by http://www.raymonschouwenaar.nl/cross-browser-document-ready-with-vanilla-javascript-ie8-included/
  */
 var domIsReady = (function(domIsReady) {

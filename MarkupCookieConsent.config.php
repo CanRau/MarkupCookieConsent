@@ -108,14 +108,6 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                 )
             ),
             array(
-                'type' => 'markup',
-                'name' => 'customFiles',
-                'label' => __('How to manually place files'),
-                'description' => __('desc'),
-                'value' => "<pre style='padding:10px;border:1px dashed #ccc'>".__('Value')."</pre>",
-                'showIf' => 'moduleStyles=0'
-            ),
-            array(
                 'type' => 'fieldset',
                 'name' => 'linkOptions',
                 'label' => __("Privacy Page Settings"),
