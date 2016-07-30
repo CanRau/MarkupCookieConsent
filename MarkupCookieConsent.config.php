@@ -71,6 +71,14 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                     )
                 )
             ),
+            // array(
+            //     'type' => 'markup',
+            //     'name' => 'customFiles',
+            //     'label' => __('How to manually place styles'),
+            //     'description' => __('desc'),
+            //     'value' => "<pre style='padding:10px;border:1px dashed #ccc'>".__('Value')."</pre>",
+            //     'showIf' => 'moduleStyles=0'
+            // ),
             array(
                 'type' => 'fieldset',
                 'name' => 'buttonOptions',
@@ -127,7 +135,8 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'label' => __("Policy link text"),
                         'notes' => __('requires the link option to also be set'),
                         'columnWidth' => 50,
-                        'showIf' => 'privacyPage!=0'
+                        'showIf' => 'privacyPage!=0',
+                        'useLanguages' => true
                     ),
                     array(
                         'type' => 'select',

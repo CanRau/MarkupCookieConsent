@@ -113,7 +113,7 @@ class MarkupCookieConsent extends WireData implements Module {
 
 
     /**
-     * @todo maybe planned in future version
+     * @plan maybe planned in future version
      */
     // public function isEU($countrycode){
     //     $eu_countrycodes = array(
