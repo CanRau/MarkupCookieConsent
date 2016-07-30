@@ -31,10 +31,11 @@ This module is intended to add a little cookie notice to your front-end. It's do
 * you wanna roll your own design? Just disable default stylesheet
 
 ## Installation
-You can enter the class name *MarkupCookieConsent* in your back-ends module configs and it will download ist automatically
+You can enter the class name *MarkupCookieConsent* in your back-ends module configs and it will download automatically
 or get from [Processwires module directory](http://modules.processwire.com/modules/markup-cookie-consent/) or [Github](https://github.com/CanRau/MarkupCookieConsent/) and install it by unzipping and moving into your /site/modules/ folder or selecting the zip from your back-ends modules page.
 
 ## Changelog
+* 0.1.4 - Cookie notification now completely translatable in front-end
 * 0.1.2 - Added minified CSS & JS files
 * 0.1.1 - Fixed issue with cookie not being set, two strings wouldn't recognize translation, default cookie expire now 1 year, updated readme, removed deprecated branch
 * 0.1.0 - Missing strings now translatable
