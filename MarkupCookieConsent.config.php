@@ -104,14 +104,16 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'label' => __('Prepend Text or HTML to the button text'),
                         'icon' => 'fa-check',
                         'notes' => sprintf(__('For example Font Awesome checkmark icon e.g. %s (You need to include Font Awesome on your own)'), "<i class='fa fa-check'></i>"),
-                        'columnWidth' => 50
+                        'columnWidth' => 50,
+                        'useLanguages' => true
                     ),
                     array(
                         'type' => 'text',
                         'name' => 'buttonAppend',
                         'label' => __('Append Text or HTML to the button text'),
                         'notes' => __('Default empty'),
-                        'columnWidth' => 50
+                        'columnWidth' => 50,
+                        'useLanguages' => true
                     )
                 )
             ),

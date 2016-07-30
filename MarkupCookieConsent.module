@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary' => __('Renders cookie consent information for EU-Cookie-Law'),
             'author' => 'Can Rau',
             'href' => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
-            'version' => 12,
+            'version' => 13,
             'autoload' => true,
             'singular' => true
         );
@@ -74,20 +74,22 @@ class MarkupCookieConsent extends WireData implements Module {
             $classPrivacy = $this->classPrivacy;
         }
 
-        $cookieConsentForm  = "<form id='mCCForm' class='$classContainer' action='./' method='post'>";
+        $userLanguage = $this->wire('user')->language;
+        $lang = $userLanguage->isDefault() ? '' : "__$userLanguage->id";
+        $cookieConsentForm  = "$lang<form id='mCCForm' class='$classContainer' action='./' method='post'>";
         $cookieConsentForm .= "<button id='mCCButton' class='$classButton' name='action' value='acceptCookies'>";
         // additional markup like an icon can easily be prepended
-        if ($this->buttonPrepend) $cookieConsentForm .= "$this->buttonPrepend ";
-        $cookieConsentForm .= $this->buttonText;
+        if ($this->buttonPrepend) $cookieConsentForm .= $this->{"buttonPrepend$lang"};
+        $cookieConsentForm .= $this->{"buttonText$lang"};
         // or appended to the button
-        if ($this->buttonAppend) $cookieConsentForm .= $this->buttonAppend;
+        if ($this->buttonAppend) $cookieConsentForm .= $this->{"buttonAppend$lang"};
         $cookieConsentForm .= "</button>";
         $cookieConsentForm .= "<p class='mCCF__message'>";
-        $cookieConsentForm .= $this->messageText;
+        $cookieConsentForm .= $this->{"messageText$lang"};
         // if privacyText and privacyUrl provided append to cookieMessage
         if ($this->privacyText && $this->privacyPage) {
             $privacyPage = $this->wire('pages')->get($this->privacyPage);
-            $cookieConsentForm .= "<a class='$classPrivacy' href='{$privacyPage->url}' target='$this->privacyTarget'>$this->privacyText</a>";
+            $cookieConsentForm .= "<a class='$classPrivacy' href='{$privacyPage->url}' target='$this->privacyTarget'>" . $this->{"privacyText$lang"} . "</a>";
         }
         $cookieConsentForm .= "</p>";
         $cookieConsentForm .= "</form>";
