@@ -1,4 +1,4 @@
-<?php
+<?php namespace ProcessWire;
 
 class MarkupCookieConsentConfig extends ModuleConfig {
     public function getDefaults() {

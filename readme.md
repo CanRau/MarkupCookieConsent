@@ -1,5 +1,8 @@
 # MarkupCookieConsent
 
+## NOTE!
+This repo now includes a devns branch. Which is not a development version of this module, but rather meant to be used with Processwire 3.x devns as the only difference is the added namespace.
+
 ## Still considered Beta
 Not widely tested, and config inputs already look like they're translatable but they're actually not yet saving!
 **Thanks to Ryan the newest PW 3.0.15 devns fixes this issue**
