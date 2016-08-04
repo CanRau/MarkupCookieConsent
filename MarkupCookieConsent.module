@@ -74,7 +74,7 @@ class MarkupCookieConsent extends WireData implements Module {
             $classPrivacy = $this->classPrivacy;
         }
 
-        if($this->wire('modules')->isInstalled('ProcessLanguage')) {
+        if($this->wire('languages')) {
             $userLanguage = $this->wire('user')->language;
             $lang = $userLanguage->isDefault() ? '' : "__$userLanguage->id";
         }
