@@ -3,6 +3,7 @@
  */
 .mCCF {
     font-size: initial;
+    margin: 0;
     padding: .7em 1em;
     position: fixed;
     z-index: 9999;
