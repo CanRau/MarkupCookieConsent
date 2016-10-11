@@ -13,7 +13,9 @@ class MarkupCookieConsentConfig extends ModuleConfig {
         'buttonAppend' => '',
         'privacyText' => '',
         'privacyPage' => 0,
+        'privacyPageUrl' => '',
         'privacyTarget' => '_self',
+        'privacyTargetCustom' => '',
         'cookieName' => 'eu-cookie',
         'cookieExpire' => time()+60*60*24*365,
         'cookiePath' => '/',
@@ -128,7 +130,16 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'description' => __('Select privacy policy page'),
                         'notes' => __('Selection reveals more options'),
                         'label' => __("Policy page"),
-                        'columnWidth' => 50
+                        'columnWidth' => 33
+                    ),
+                    array(
+                        'type' => 'text',
+                        'name' => 'privacyPageUrl',
+                        'description' => __('Alternatively provide a custom url to your policy page'),
+                        'label' => __("Custom policy link"),
+                        'notes' => __('overrides previous page selection'),
+                        'columnWidth' => 34,
+                        'useLanguages' => true
                     ),
                     array(
                         'type' => 'text',
@@ -136,8 +147,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'description' => __('The text shown on the link to the cookie policy'),
                         'label' => __("Policy link text"),
                         'notes' => __('requires the link option to also be set'),
-                        'columnWidth' => 50,
-                        'showIf' => 'privacyPage!=0',
+                        'columnWidth' => 33,
                         'useLanguages' => true
                     ),
                     array(
@@ -158,7 +168,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                     ),
                     array(
                         'type' => 'text',
-                        'name' => 'target',
+                        'name' => 'privacyTargetCustom',
                         'label' => __('Enter your selector'),
                         'columnWidth' => 50,
                         'showIf' => 'privacyPage!=0, privacyTarget=custom'

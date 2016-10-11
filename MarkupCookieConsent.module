@@ -82,7 +82,10 @@ class MarkupCookieConsent extends WireData implements Module {
         else {
             $lang = '';
         }
-        $cookieConsentForm  = "$lang<form id='mCCForm' class='$classContainer' action='./' method='post'>";
+        
+        $target = $this->privacyTarget === 'custom' ? $this->privacyTargetCustom : $this->privacyTarget;
+
+        $cookieConsentForm  = "<form id='mCCForm' class='$classContainer' action='./' method='post'>";
         $cookieConsentForm .= "<button id='mCCButton' class='$classButton' name='action' value='acceptCookies'>";
         // additional markup like an icon can easily be prepended
         if ($this->buttonPrepend) $cookieConsentForm .= $this->{"buttonPrepend$lang"};
@@ -93,9 +96,9 @@ class MarkupCookieConsent extends WireData implements Module {
         $cookieConsentForm .= "<p class='mCCF__message'>";
         $cookieConsentForm .= $this->{"messageText$lang"};
         // if privacyText and privacyUrl provided append to cookieMessage
-        if ($this->privacyText && $this->privacyPage) {
-            $privacyPage = $this->wire('pages')->get($this->privacyPage);
-            $cookieConsentForm .= "<a class='$classPrivacy' href='{$privacyPage->url}' target='$this->privacyTarget'>" . $this->{"privacyText$lang"} . "</a>";
+        if ($this->privacyText && ($this->privacyPage || $this->{"privacyPageUrl$lang"})) {
+            $privacyUrl = $this->{"privacyPageUrl$lang"} ?: $this->wire('pages')->get($this->privacyPage)->url;
+            $cookieConsentForm .= "<a class='$classPrivacy' href='$privacyUrl' target='$target'>" . $this->{"privacyText$lang"} . "</a>";
         }
         $cookieConsentForm .= "</p>";
         $cookieConsentForm .= "</form>";
