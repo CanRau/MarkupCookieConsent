@@ -85,7 +85,7 @@ class MarkupCookieConsent extends WireData implements Module {
         
         $target = $this->privacyTarget === 'custom' ? $this->privacyTargetCustom : $this->privacyTarget;
 
-        $cookieConsentForm  = "<form id='mCCForm' class='$classContainer' action='./' method='post'>";
+        $cookieConsentForm  = "<form id='mCCForm' class='$classContainer' action='./?accept=cookies' method='post'>";
         $cookieConsentForm .= "<button id='mCCButton' class='$classButton' name='action' value='acceptCookies'>";
         // additional markup like an icon can easily be prepended
         if ($this->buttonPrepend) $cookieConsentForm .= $this->{"buttonPrepend$lang"};
