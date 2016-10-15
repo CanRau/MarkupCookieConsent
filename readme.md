@@ -35,6 +35,7 @@ You can enter the class name *MarkupCookieConsent* in your back-ends module conf
 or get from [Processwires module directory](http://modules.processwire.com/modules/markup-cookie-consent/) or [Github](https://github.com/CanRau/MarkupCookieConsent/) and install it by unzipping and moving into your /site/modules/ folder or selecting the zip from your back-ends modules page.
 
 ## Changelog
+* 0.2.0 - fixed version issue and misleading cookie expiration setting
 * 0.1.6 - added custom privacy url as requested by kixe, fixed custom link target, appended query string "accept=cookies" to form action for cached non ajax requests
 * 0.1.5 - fixed issue on single language installations
 * 0.1.4 - Cookie notification now completely translatable in front-end
