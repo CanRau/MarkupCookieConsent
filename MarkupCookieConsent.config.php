@@ -17,7 +17,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
         'privacyTarget' => '_self',
         'privacyTargetCustom' => '',
         'cookieName' => 'eu-cookie',
-        'cookieExpire' => time()+60*60*24*365,
+        'cookieExpire' => 60*60*24*365,
         'cookiePath' => '/',
         'cookieDomain' => null,
         'cookieSSL' => false,
