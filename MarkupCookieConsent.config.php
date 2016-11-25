@@ -12,13 +12,12 @@ class MarkupCookieConsentConfig extends ModuleConfig {
         'buttonPrepend' => '',
         'buttonAppend' => '',
         'privacyText' => '',
-        'privacyPage' => 0,
+        'privacyPage' => 1,
         'privacyPageUrl' => '',
         'privacyTarget' => '_self',
         'privacyTargetCustom' => '',
         'cookieName' => 'eu-cookie',
         'cookieExpire' => 60*60*24*365,
-        'cookiePath' => '/',
         'cookieDomain' => null,
         'cookieSSL' => false,
         'cookieHttp' => true,
@@ -38,20 +37,20 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'name' => 'useAjax',
                         'label' => __('Enable Ajax'),
                         'notes' => __('No dependencies (vanilla js), prevents confirmation from reloading page'),
-                        'columnWidth' => 25
+                        'columnWidth' => 20
                     ),
                     array(
                         'type' => 'checkbox',
                         'name' => 'moduleStyles',
                         'label' => __('Inject modules stylesheet?'),
                         'notes' => __('Automagically appends the stylesheet to your <head>'),
-                        'columnWidth' => 25
+                        'columnWidth' => 20
                     ),
                     array(
                         'type' => 'select',
                         'name' => 'colorTheme',
                         'label' => __('Select theme'),
-                        'columnWidth' => 25,
+                        'columnWidth' => 20,
                         'options' => array(
                             'dark' => __('dark (Default)'),
                             'light' => __('light')
@@ -63,14 +62,29 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'type' => 'select',
                         'name' => 'position',
                         'label' => __('Select position'),
-                        'columnWidth' => 25,
+                        'columnWidth' => 20,
                         'options' => array(
                             'top' => __('top'),
                             'bottom' => __('bottom (Default)')
                         ),
                         'showIf' => 'moduleStyles=1',
                         'requiredIf' => 'moduleStyles=1'
-                    )
+                    ),
+                    array(
+                        'type' => 'markup',
+                        'label' => __('Cookie control'),
+                        'description' => $this->wire('modules')->get('MarkupCookieConsent')->cookieExists(),
+                        'columnWidth' => 20,
+                        'children' => array(
+                            array(
+                                'type' => 'button',
+                                'name' => 'removeCookie',
+                                'href' => "edit?name={$this->wire('input')->get->name}&cookie=remove",
+                                'value' => __('Remove cookie'),
+                                'notes' => __('Remove cookie from this computer')
+                                )
+                            )
+                        )
                 )
             ),
             // array(
@@ -118,6 +132,14 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'useLanguages' => true
                     )
                 )
+            ),
+            array(
+                'type' => 'Selector',
+                'name' => 'pageSelector',
+                'label' => __('Banner display limit'),
+                'description' => __('Define selectors, which limits the display of the banner to selected pages.'),
+                'notes' => __('To include parent of page tree define name=NameOfParent then has_parent=NameOfParent (both need to be equal), then select checkbox next to second selector to switch to OR group'),
+                'columnWidth' => 100
             ),
             array(
                 'type' => 'fieldset',
@@ -187,7 +209,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'label' => __("Cookie name"),
                         'description' => __('The name for the consent cookie'),
                         'notes' => sprintf(__('Default: %s'), 'eu-cookie'),
-                        'columnWidth' => 50
+                        'columnWidth' => 33
                     ),
                     array(
                         'type' => 'integer',
@@ -196,7 +218,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'description' => __('Seconds the cookie should last'),
                         'notes' => __('Default: 31536000 (seconds) = 1 year'),
                         'size' => 100,
-                        'columnWidth' => 50
+                        'columnWidth' => 33
                     ),
                     array(
                         'type' => 'text',
@@ -204,15 +226,7 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                         'label' => __("Cookie domain"),
                         'description' => __('The domain for the consent cookie that Cookie Consent uses, to remember that users have consented to cookies.'),
                         'notes' => __('Useful if your website uses multiple subdomains, e.g. if your script is hosted at www.example.com you might override this to example.com, thereby allowing the same consent cookie to be read by subdomains like foo.example.com'),
-                        'columnWidth' => 50
-                    ),
-                    array(
-                        'type' => 'text',
-                        'name' => 'cookiePath',
-                        'label' => __("Cookie path"),
-                        'description' => __('The path for the consent cookie'),
-                        'notes' => __('Use to limit consent to a specific path within your website'),
-                        'columnWidth' => 50
+                        'columnWidth' => 34
                     ),
                     array(
                         'type' => 'checkbox',
@@ -239,4 +253,6 @@ class MarkupCookieConsentConfig extends ModuleConfig {
             // )
         ));
     }
+
+
 }
