@@ -1,5 +1,8 @@
 # MarkupCookieConsent
 
+## Requires
+PW 3.0.15 for [this fix](https://github.com/ryancramerdesign/ProcessWire/commit/2fe134b7b059fff023f0f37c7f172a9853c88af2) to be applied, at least needed for multilang config, otherwise other languages wouldn't save
+
 ## NOTE!
 This repo now includes a devns branch. Which is not a development version of this module, but rather meant to be used with Processwire 3.x devns as the only difference is the added namespace and therefore the requires flag in module info.
 
