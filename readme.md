@@ -1,5 +1,9 @@
 # MarkupCookieConsent
 
+## Requires
+ProcessWire >= 2.8.15
+Haven't tested it myself on pw 2.8, and actually don't even know if there is 2.8.15. Thing is, it depends on [this fix](https://github.com/ryancramerdesign/ProcessWire/commit/2fe134b7b059fff023f0f37c7f172a9853c88af2) which was applied right before pw 3.0.16.
+
 ## NOTE!
 This repo now includes a devns branch. Which is not a development version of this module, but rather meant to be used with Processwire 3.x devns as the only difference is the added namespace and therefore the requires flag in module info.
 

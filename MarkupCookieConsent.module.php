@@ -23,15 +23,12 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary'  => __('Renders cookie consent information for EU-Cookie-Law'),
             'author'   => 'Can Rau',
             'href'     => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
-            'version'  => 30,
+            'version'  => 31,
             'autoload' => true,
             'singular' => true,
-            'requires' => 'ProcessWire>=3.0.0'
+            'requires' => 'ProcessWire>=2.8.15'
         );
     }
-
-
-    public function __construct() {}
 
 
     public function init() {
@@ -141,18 +138,5 @@ class MarkupCookieConsent extends WireData implements Module {
             return __('No cookie set');
         }
     }
-
-
-    /**
-     * @plan maybe planned in future version
-     */
-    // public function isEU($countrycode){
-    //     $eu_countrycodes = array(
-    //         'AT', 'BE', 'BG', 'CH', 'CY', 'CZ', 'DE', 'DK', 'EE', 'EL',
-    //         'ES', 'FI', 'FR', 'GB', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV',
-    //         'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
-    //     );
-    //     return(in_array($countrycode, $eu_countrycodes));
-    // }
 
 }
