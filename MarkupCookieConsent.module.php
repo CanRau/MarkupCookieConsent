@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary'  => __('Renders cookie consent information for EU-Cookie-Law'),
             'author'   => 'Can Rau',
             'href'     => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
-            'version'  => 31,
+            'version'  => 32,
             'autoload' => true,
             'singular' => true,
             'requires' => 'ProcessWire>=2.8.15'
@@ -65,10 +65,10 @@ class MarkupCookieConsent extends WireData implements Module {
         $page  = $event->object;
         $pages = $this->wire('pages');
 
-        // we stop here when on admin pages except this modules config page (for demonstration)
-        // if($page->template == 'admin' && $this->wire('input')->get->name != $this) return;
         // we stop here when on admin pages except this modules config page (for demonstration) or out of pageSelector
-        if(($page->template != 'admin' && $pages->find($this->pageSelector)->has($page) == false) || ($page->template == 'admin' && $this->wire('input')->get->name != $this)) return;
+        if(($page->template != 'admin' && $this->pageSelector &&  $pages->find($this->pageSelector)->has($page) == false)
+         || ($page->template == 'admin' && $this->wire('input')->get->name != $this))
+            return;
 
         if ($this->moduleStyles) {
             $classPrefix    = empty($this->classPrefix) ? 'mCCF' : $this->classPrefix;
