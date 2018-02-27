@@ -1,8 +1,5 @@
 # MarkupCookieConsent
 
-## [unmaintained]
-looking for new maintainers
-
 ## Requires
 ProcessWire >= 2.8.15
 Haven't tested it myself on pw 2.8, and actually don't even know if there is 2.8.15. Thing is, it depends on [this fix](https://github.com/ryancramerdesign/ProcessWire/commit/2fe134b7b059fff023f0f37c7f172a9853c88af2) which was applied right before pw 3.0.16.
@@ -24,6 +21,16 @@ The module only checks for minified style and script so if you make any changes 
 So the non-minified versions are only for development.
 Minified CSS & JS have been added in version 0.1.2.
 
+## CSS customization
+If you want to use your own stylesheet or merge **MarkupCookieConsent** styles with another stylesheet just uncheck **moduleStyles**.
+If you want to use a custom CSS class prefix you can modify it by adding the following code line to your **ready.php**.
+ 
+```
+$modules->get('MarkupCookieConsent')->classPrefix = 'CSSCustomPrefix';  
+```
+
+
+
 ## What it does
 This module is intended to add a little cookie notice to your front-end. It's doing this by hooking into page render and altering the output to include the form at the end of the page (right before &lt;/body&gt;).
 
@@ -43,6 +50,8 @@ You can enter the class name *MarkupCookieConsent* in your back-ends module conf
 or get from [Processwires module directory](http://modules.processwire.com/modules/markup-cookie-consent/) or [Github](https://github.com/CanRau/MarkupCookieConsent/) and install it by unzipping and moving into your /site/modules/ folder or selecting the zip from your back-ends modules page.
 
 ## Changelog
+* 0.3.3 - CSS class prefix sustainably implemented,
+removed dependence between stylesheet-autoinjection and CSS classes
 * 0.3.2 - fix banner not showing on front end if no page selector provided
 * 0.3.0 - add display limit selector field to define limit the banner to certain pages, added "remove cookie" button, removed cookie path setting
 * 0.2.0 - fixed version issue and misleading cookie expiration setting
