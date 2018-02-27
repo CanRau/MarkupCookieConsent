@@ -22,11 +22,11 @@ class MarkupCookieConsentConfig extends ModuleConfig {
         'cookieSSL' => false,
         'cookieHttp' => true,
         'classPrefix' => 'mCCF',
-        'classButton' => 'mCCF__accept'
         );
     }
 
     public function __construct() {
+        $mcc = $this->wire('modules')->get('MarkupCookieConsent');
         $this->add(array(
             array(
                 'type' => 'fieldset',
@@ -55,7 +55,8 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                             'dark' => __('dark (Default)'),
                             'light' => __('light')
                         ),
-                        'showIf' => 'moduleStyles=1',
+                        'notes' => __("Adds CSS class '{$mcc->classPrefix}--{$mcc->colorTheme}' to the <form> tag."),
+                        // 'showIf' => 'moduleStyles=1',
                         'requiredIf' => 'moduleStyles=1'
                     ),
                     array(
@@ -67,13 +68,14 @@ class MarkupCookieConsentConfig extends ModuleConfig {
                             'top' => __('top'),
                             'bottom' => __('bottom (Default)')
                         ),
-                        'showIf' => 'moduleStyles=1',
+                        'notes' => __("Adds CSS class '{$mcc->classPrefix}--{$mcc->position}' to the <form> tag."),
+                        // 'showIf' => 'moduleStyles=1',
                         'requiredIf' => 'moduleStyles=1'
                     ),
                     array(
                         'type' => 'markup',
                         'label' => __('Cookie control'),
-                        'description' => $this->wire('modules')->get('MarkupCookieConsent')->cookieExists(),
+                        'description' => $mcc->cookieExists(),
                         'columnWidth' => 20,
                         'children' => array(
                             array(
