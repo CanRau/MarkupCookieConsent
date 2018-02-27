@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary'  => __('Renders cookie consent information for EU-Cookie-Law'),
             'author'   => 'Can Rau',
             'href'     => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
-            'version'  => 32,
+            'version'  => 33,
             'autoload' => true,
             'singular' => true,
             'requires' => 'ProcessWire>=2.8.15'
@@ -70,18 +70,12 @@ class MarkupCookieConsent extends WireData implements Module {
          || ($page->template == 'admin' && $this->wire('input')->get->name != $this))
             return;
 
-        if ($this->moduleStyles) {
-            $classPrefix    = empty($this->classPrefix) ? 'mCCF' : $this->classPrefix;
-            $position       = empty($this->position) ? 'bottom' : $this->position;
-            $colorTheme     = empty($this->colorTheme) ? 'dark' : $this->colorTheme;
-            $classContainer = "$classPrefix {$classPrefix}--{$position} {$classPrefix}--{$colorTheme}";
-            $classButton    = "{$classPrefix}__accept";
-            $classPrivacy   = "{$classPrefix}__link";
-        } else {
-            $classContainer = $this->classContainer;
-            $classButton    = $this->classButton;
-            $classPrivacy   = $this->classPrivacy;
-        }
+        $classPrefix    = empty($this->classPrefix) ? 'mCCF' : $this->classPrefix;
+        $position       = empty($this->position) ? 'bottom' : $this->position;
+        $colorTheme     = empty($this->colorTheme) ? 'dark' : $this->colorTheme;
+        $classContainer = "$classPrefix {$classPrefix}--{$position} {$classPrefix}--{$colorTheme}";
+        $classButton    = "{$classPrefix}__accept";
+        $classPrivacy   = "{$classPrefix}__link";
 
         if($this->wire('languages')) {
             $userLanguage = $this->wire('user')->language;
@@ -101,7 +95,7 @@ class MarkupCookieConsent extends WireData implements Module {
         // or appended to the button
         if ($this->buttonAppend) $cookieConsentForm .= $this->{"buttonAppend$lang"};
         $cookieConsentForm .= "</button>";
-        $cookieConsentForm .= "<p class='mCCF__message'>";
+        $cookieConsentForm .= "<p class='{$classPrefix}__message'>";
         $cookieConsentForm .= $this->{"messageText$lang"};
         // if privacyText and privacyUrl provided append to cookieMessage
         if ($this->privacyText && ($this->privacyPage || $this->{"privacyPageUrl$lang"})) {
