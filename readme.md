@@ -1,5 +1,8 @@
 # MarkupCookieConsent
 
+## [unmaintained]
+looking for new maintainers
+
 ## Requires
 PW 3.0.15 for [this fix](https://github.com/ryancramerdesign/ProcessWire/commit/2fe134b7b059fff023f0f37c7f172a9853c88af2) to be applied, at least needed for multilang config, otherwise other languages wouldn't save
 
