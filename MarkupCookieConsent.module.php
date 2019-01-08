@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary'  => __('Renders cookie consent information for EU-Cookie-Law'),
             'author'   => 'Can Rau',
             'href'     => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
-            'version'  => 33,
+            'version'  => 34,
             'autoload' => true,
             'singular' => true,
             'requires' => 'ProcessWire>=2.8.15'
@@ -43,6 +43,9 @@ class MarkupCookieConsent extends WireData implements Module {
         // set cookie if accept cookie button pressed
         if ($input->post->action === 'acceptCookies') {
             setcookie($this->cookieName, 1, time() + $this->cookieExpire, '/', $this->cookieDomain, $this->cookieSSL, $this->cookieHttp);
+            
+            // start a ProcessWire session and set the wire/s cookie
+            if ($config->sessionAllow) $session->hasCookie()? : $session->init();
 
             // if it's ajax request we just exit here
             if ($config->ajax) exit;
