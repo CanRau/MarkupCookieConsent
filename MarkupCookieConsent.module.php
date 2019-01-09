@@ -23,7 +23,7 @@ class MarkupCookieConsent extends WireData implements Module {
             'summary'  => __('Renders cookie consent information for EU-Cookie-Law'),
             'author'   => 'Can Rau',
             'href'     => 'https://processwire.com/talk/topic/12253-markupcookieconsent/',
-            'version'  => 34,
+            'version'  => 35,
             'autoload' => true,
             'singular' => true,
             'requires' => 'ProcessWire>=2.8.15'
@@ -45,7 +45,7 @@ class MarkupCookieConsent extends WireData implements Module {
             setcookie($this->cookieName, 1, time() + $this->cookieExpire, '/', $this->cookieDomain, $this->cookieSSL, $this->cookieHttp);
             
             // start a ProcessWire session and set the wire/s cookie
-            if ($config->sessionAllow) $session->hasCookie()? : $session->init();
+            if ($config->sessionAllow && !$session->hasCookie()) $session->init();
 
             // if it's ajax request we just exit here
             if ($config->ajax) exit;
@@ -67,6 +67,7 @@ class MarkupCookieConsent extends WireData implements Module {
     public function renderCookieForm($event) {
         $page  = $event->object;
         $pages = $this->wire('pages');
+        $debug = $this->wire('config')->debug;
 
         // we stop here when on admin pages except this modules config page (for demonstration) or out of pageSelector
         if(($page->template != 'admin' && $this->pageSelector &&  $pages->find($this->pageSelector)->has($page) == false)
@@ -93,24 +94,29 @@ class MarkupCookieConsent extends WireData implements Module {
         $cookieConsentForm  = "<form id='mCCForm' class='$classContainer' action='./?accept=cookies' method='post'>";
         $cookieConsentForm .= "<button id='mCCButton' class='$classButton' name='action' value='acceptCookies'>";
         // additional markup like an icon can easily be prepended
-        if ($this->buttonPrepend) $cookieConsentForm .= $this->{"buttonPrepend$lang"};
-        $cookieConsentForm .= $this->{"buttonText$lang"};
+        if ($this->buttonPrepend) $cookieConsentForm .= $this->get("buttonPrepend$lang|buttonPrepend");
+        $cookieConsentForm .= $this->get("buttonText$lang|buttonText");
         // or appended to the button
-        if ($this->buttonAppend) $cookieConsentForm .= $this->{"buttonAppend$lang"};
+        if ($this->buttonAppend) $cookieConsentForm .= $this->get("buttonAppend$lang|buttonAppend");
         $cookieConsentForm .= "</button>";
         $cookieConsentForm .= "<p class='{$classPrefix}__message'>";
-        $cookieConsentForm .= $this->{"messageText$lang"};
+        // message text markdown supported
+        $t = $this->wire('modules')->get('TextformatterMarkdownExtra');
+        $str = $t->markdown($this->get("messageText$lang|messageText"), 2); 
+        $cookieConsentForm .= trim(str_ireplace(array('<p>', '</p>'), '', $str)); 
+
         // if privacyText and privacyUrl provided append to cookieMessage
         if ($this->privacyText && ($this->privacyPage || $this->{"privacyPageUrl$lang"})) {
             $privacyUrl = $this->{"privacyPageUrl$lang"} ?: $pages->get($this->privacyPage)->url;
-            $cookieConsentForm .= "<a class='$classPrivacy' href='$privacyUrl' target='$target'>" . $this->{"privacyText$lang"} . "</a>";
+            $cookieConsentForm .= "<a class='$classPrivacy' href='$privacyUrl' target='$target'>" . $this->get("privacyText$lang|privacyText") . "</a>";
         }
         $cookieConsentForm .= "</p>";
         $cookieConsentForm .= "</form>";
         $folder = $this->wire('config')->urls->$this;
-        if ($this->moduleStyles) $event->return = $this->str_replace_once("<link ", "<link rel='stylesheet' type='text/css' href='{$folder}{$this}.min.css' /><link ", $event->return); 
+        $min = $debug? '':'.min';
+        if ($this->moduleStyles) $event->return = $this->str_replace_once("<link ", "<link rel='stylesheet' type='text/css' href='{$folder}{$this}{$min}.css' /><link ", $event->return); 
 
-        $jsFile = $this->useAjax ? "<script type='text/javascript' src='{$folder}{$this}.min.js'></script>" : '';
+        $jsFile = $this->useAjax ? "<script type='text/javascript' src='{$folder}{$this}{$min}.js'></script>" : '';
 
         $event->return = str_replace("</body>", "{$jsFile}{$cookieConsentForm}</body>", $event->return);
     }

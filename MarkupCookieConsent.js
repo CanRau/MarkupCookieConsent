@@ -55,9 +55,12 @@ var domIsReady = (function(domIsReady) {
          xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
          xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
          xhr.send('action=acceptCookies');
-         window.location.reload(true);
+         xhr.onreadystatechange=function(){
+         	if(xhr.readyState==4 && xhr.status==200){
+         		window.location.reload(true);
+         	}
+         }
       });
-
    });
 
 })(document, window, domIsReady);
