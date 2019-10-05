@@ -116,7 +116,7 @@ class MarkupCookieConsent extends WireData implements Module {
         $min = $debug? '':'.min';
         if ($this->moduleStyles) $event->return = $this->str_replace_once("<link ", "<link rel='stylesheet' type='text/css' href='{$folder}{$this}{$min}.css' /><link ", $event->return); 
 
-        $jsFile = $this->useAjax ? "<script type='text/javascript' src='{$folder}{$this}{$min}.js'></script>" : '';
+        $jsFile = $this->useAjax ? "<script src='{$folder}{$this}{$min}.js'></script>" : '';
 
         $event->return = str_replace("</body>", "{$jsFile}{$cookieConsentForm}</body>", $event->return);
     }
